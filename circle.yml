@@ -1,0 +1,5 @@
+test:
+  override:
+    - unset GH_CLIENT_ID && sbt clean coverage test
+  post:
+    - sbt coveralls

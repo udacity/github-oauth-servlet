@@ -53,7 +53,7 @@ class GitHubOauthServletTests extends FunSuite with BeforeAndAfterAll {
 
     get(GitHubOauthServletServer.host) match { case Response(status, headers, body) =>
         assert(500 === status)
-        assert(body.contains("Missing system properties:"))
+        assert(body.contains("Missing environment configuration:"))
         assert(body.contains("GH_CLIENT_ID"))
         assert(body.contains("GH_CLIENT_SECRET"))
         assert(body.contains("GH_OAUTH_URL"))

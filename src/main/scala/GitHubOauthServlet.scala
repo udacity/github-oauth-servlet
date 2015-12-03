@@ -11,7 +11,7 @@ import java.net.URLDecoder
 case class AuthKey(value: String)
 
 object GitHubOauthServlet {
-  private val authCache = TrieMap.empty[AuthKey, GitHubUser]
+  private val authCache = TrieMap.empty[GitHubUser, AuthKey]
 }
 
 class GitHubOauthServlet extends javax.servlet.http.HttpServlet {
@@ -74,7 +74,7 @@ class GitHubOauthServlet extends javax.servlet.http.HttpServlet {
                 ghClient.getOrgUser(token) match {
                   case Some(user) =>
                     val authKey = AuthKey(UUID.randomUUID.toString)
-                    GitHubOauthServlet.authCache += authKey -> user
+                    GitHubOauthServlet.authCache += user -> authKey
                     val cookie = new Cookie("auth-key", authKey.value)
                     cookie.setPath("/")
                     res.addCookie(cookie)

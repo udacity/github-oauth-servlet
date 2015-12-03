@@ -1,5 +1,7 @@
 package com.udacity.github.oauth.test
 
+import com.udacity.github.oauth.GitHubUser
+import com.udacity.github.oauth.AuthKey
 import com.udacity.github.oauth.GitHubOauthServlet
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.server.ServerConnector
@@ -125,6 +127,14 @@ class GitHubOauthServletTests extends FunSuite with BeforeAndAfterAll {
       case Response(status, headers, body) =>
         assert(302 === status)
         assert(headers.get("Location") === Some(continueUrl))
+        val userO: Option[GitHubUser] =
+          for {
+            setCookie <- headers.get("Set-Cookie")
+            values    <- setCookie.split("=").lift(1)
+            value     <- values.split(";").lift(0)
+            user      <- GitHubOauthServlet.get(AuthKey(value))
+          } yield user
+        assert(Some(GitHubUser("Bob")) === userO)
     }
   }
 

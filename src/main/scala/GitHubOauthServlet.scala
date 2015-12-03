@@ -25,7 +25,7 @@ class GitHubOauthServlet extends javax.servlet.http.HttpServlet {
     val continueUrl: Option[String] =
       for {
         uri      <- Option(req.getRequestURI)
-        continue  = uri.drop(1)
+        continue  = uri.drop(req.getServletPath.length + 1)
         if (continue.length > 0)
       } yield URLDecoder.decode(continue)
 

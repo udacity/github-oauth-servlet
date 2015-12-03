@@ -62,15 +62,13 @@ class GitHubOauthServlet extends javax.servlet.http.HttpServlet {
       case Invalid(names) =>
         res.sendError(500, s"""Missing environment configuration: ${names.mkString(", ")}""")
       case Valid(ghClient) =>
-
-    def ghCreds: Option[(String, String)] =
-      for {
-        gitHubCode  <- param("code")
-        gitHubState <- param("state")
-        cookieState <- cookie("gh-state")
-        if cookieState == gitHubState
-      } yield (gitHubCode, gitHubState)
-
+        val ghCreds: Option[(String, String)] =
+          for {
+            gitHubCode  <- param("code")
+            gitHubState <- param("state")
+            cookieState <- cookie("gh-state")
+            if cookieState == gitHubState
+          } yield (gitHubCode, gitHubState)
         ghCreds match {
           case Some((code, state)) =>
             ghClient.getAccessToken(code, state) match {
@@ -101,9 +99,7 @@ class GitHubOauthServlet extends javax.servlet.http.HttpServlet {
                 "&redirect_uri=", URLEncoder.encode(req.getRequestURL.toString)
               ).reduceLeft(_ ++ _)
             )
-
         }
-
     }
 
   }

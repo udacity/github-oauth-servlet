@@ -11,7 +11,11 @@ import java.net.URLDecoder
 case class AuthKey(value: String)
 
 object GitHubOauthServlet {
+
   private val authCache = TrieMap.empty[AuthKey, GitHubUser]
+
+  def get(k: AuthKey): Option[GitHubUser] = authCache.get(k)
+
 }
 
 class GitHubOauthServlet extends javax.servlet.http.HttpServlet {

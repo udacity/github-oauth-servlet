@@ -50,10 +50,11 @@ object GitHubServer {
   val port = 11112
   val server = new Server(port)
 
-  val host = s"http://localhost:${port}/auth/github"
+  val contextRoot = "/oauth/github"
+  val host = s"http://localhost:${port}${contextRoot}"
 
   val context = new ServletContextHandler(ServletContextHandler.SESSIONS)
-  context.setContextPath("/auth/github")
+  context.setContextPath(contextRoot)
   context.addServlet(classOf[GitHubServlet], "/*")
   server.setHandler(context)
 

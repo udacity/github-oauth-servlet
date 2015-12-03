@@ -40,12 +40,12 @@ class GitHubOauthServlet extends javax.servlet.http.HttpServlet {
       }
 
     def prop(name: String): Validation[String] =
-      sys.props.get(name) match {
+      sys.props.get(name).orElse(sys.env.get(name)) match {
         case Some(value) => Valid(value)
         case None => Invalid(List(name))
       }
 
-    val ghClientE: Validation[GitHubClient] =
+    def ghClientE: Validation[GitHubClient] =
       prop("GH_ORG").ap(
         prop("GH_API_URL").ap(
           prop("GH_OAUTH_URL").ap(
@@ -60,7 +60,7 @@ class GitHubOauthServlet extends javax.servlet.http.HttpServlet {
 
     ghClientE match {
       case Invalid(names) =>
-        res.sendError(500, s"""Missing system properties: ${names.mkString(", ")}""")
+        res.sendError(500, s"""Missing environment configuration: ${names.mkString(", ")}""")
       case Valid(ghClient) =>
 
     def ghCreds: Option[(String, String)] =

@@ -7,6 +7,7 @@ import javax.servlet.http.{ HttpServletResponse => Res }
 import java.util.UUID
 import java.net.URLEncoder
 import java.net.URLDecoder
+import com.udacity.github.oauth.Validation._
 
 case class AuthKey(value: String)
 
@@ -46,17 +47,12 @@ class GitHubOauthServlet extends javax.servlet.http.HttpServlet {
       }
 
     def ghClientE: Validation[GitHubClient] =
-      prop("GH_ORG").ap(
-        prop("GH_API_URL").ap(
-          prop("GH_OAUTH_URL").ap(
-            prop("GH_CLIENT_SECRET").ap(
-              prop("GH_CLIENT_ID").ap(
-                Valid((GitHubClient.apply _).curried)
-              )
-            )
-          )
-        )
-      )
+      (GitHubClient.apply _).curried <%>
+        prop("GH_CLIENT_ID") <*>
+        prop("GH_CLIENT_SECRET") <*>
+        prop("GH_OAUTH_URL") <*>
+        prop("GH_API_URL") <*>
+        prop("GH_ORG")
 
     ghClientE match {
       case Invalid(names) =>

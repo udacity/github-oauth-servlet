@@ -5,7 +5,6 @@ scalaVersion := "2.11.7"
 libraryDependencies ++= Seq(
     "io.argonaut"               %% "argonaut"         % "6.1-M4"
   , "javax.servlet"             % "javax.servlet-api" % "3.1.0"           % "provided"
-  , "ch.qos.logback"            %  "logback-classic"  % "1.1.3"           % "provided"
   , "org.eclipse.jetty"         %  "jetty-webapp"     % "9.1.0.v20131115" % "test"
   , "org.eclipse.jetty"         %  "jetty-plus"       % "9.1.0.v20131115" % "test"
   , "org.scalatra"              %% "scalatra"         % "2.3.1"           % "test"

@@ -1,5 +1,5 @@
-[![Circle CI][https://circleci.com/gh/udacity/github-oauth-servlet.svg?style=svg]](https://circleci.com/gh/udacity/github-oauth-servlet)
-[![Coverage Status][https://coveralls.io/repos/udacity/github-oauth-servlet/badge.svg?branch=master&service=github]](https://coveralls.io/github/udacity/github-oauth-servlet?branch=master)
+[![Circle CI](https://circleci.com/gh/udacity/github-oauth-servlet.svg?style=svg)](https://circleci.com/gh/udacity/github-oauth-servlet)
+[![Coverage Status](https://coveralls.io/repos/udacity/github-oauth-servlet/badge.svg?branch=master&service=github)](https://coveralls.io/github/udacity/github-oauth-servlet?branch=master)
 
 github-oauth-servlet is a drop-in Servlet that adds GitHub
 organization-based authentication to your J2EE project.
@@ -44,5 +44,5 @@ which the user can be looked up via `GitHubOauthServlet#get`.
  
 ## References
 
-* [GitHub API v3](https://developer.github.com/v3/oauth/)
+* [GitHub API v3](https://developer.github.com/v3/)
 * [GitHub OAuth](https://developer.github.com/v3/oauth/)

@@ -44,5 +44,5 @@ which the user can be looked up via `GitHubOauthServlet#get`.
  
 ## References
 
-* [GitHub API v3](https://developer.github.com/v3/oauth/)
+* [GitHub API v3](https://developer.github.com/v3/)
 * [GitHub OAuth](https://developer.github.com/v3/oauth/)

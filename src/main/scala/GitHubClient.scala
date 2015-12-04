@@ -5,10 +5,10 @@ import Argonaut._
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-case class GitHubUser(name: String) {
+case class GitHubUser(login: String) {
 
   implicit def encodeJson: EncodeJson[GitHubUser] =
-    jencode1L((u: GitHubUser) => (u.name))("name")
+    jencode1L((u: GitHubUser) => (u.login))("login")
 
   def toJson: String = this.asJson.spaces2
 
@@ -18,8 +18,8 @@ object GitHubUser {
 
   implicit def decodeJson: DecodeJson[GitHubUser] =
     DecodeJson(c => for {
-      name <- (c --\ "name").as[String]
-    } yield GitHubUser(name))
+      login <- (c --\ "login").as[String]
+    } yield GitHubUser(login))
 
   def parse(json: String): Option[GitHubUser] =
     json.decodeOption[GitHubUser]
@@ -68,7 +68,7 @@ case class GitHubClient(
 
     for {
       u <- GitHubUser.parse(resp)
-    } yield GitHubUser(name = u.name)
+    } yield GitHubUser(login = u.login)
 
   }
 

@@ -21,7 +21,7 @@ class GitHubServlet extends ScalatraServlet {
   }
 
   get("/api/user") {
-    GitHubUser(name = "Bob").toJson
+    GitHubUser(login = "bob").toJson
   }
 
   get("/api/user/orgs") {

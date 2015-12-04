@@ -134,7 +134,7 @@ class GitHubOauthServletTests extends FunSuite with BeforeAndAfterAll {
             value     <- values.split(";").lift(0)
             user      <- GitHubOauthServlet.get(AuthKey(value))
           } yield user
-        assert(Some(GitHubUser("Bob")) === userO)
+        assert(Some(GitHubUser("bob")) === userO)
     }
   }
 

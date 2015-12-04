@@ -2,6 +2,8 @@ package com.udacity.github.oauth
 
 import argonaut._
 import Argonaut._
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 case class GitHubUser(name: String) {
 
@@ -43,6 +45,8 @@ case class GitHubClient(
   oauthUrl: String, apiUrl: String,
   orgname: String) {
 
+  val logger = LoggerFactory.getLogger(getClass.getName)
+
   import java.io._
   import java.net.URL
   import java.net.HttpURLConnection
@@ -59,6 +63,8 @@ case class GitHubClient(
 
     val is = conn.getInputStream
     val resp = scala.io.Source.fromInputStream(is).mkString
+    logger.debug("got user:")
+    logger.debug(resp)
 
     for {
       u <- GitHubUser.parse(resp)
@@ -76,6 +82,8 @@ case class GitHubClient(
 
     val is = conn.getInputStream
     val resp = scala.io.Source.fromInputStream(is).mkString
+    logger.debug("got orgs:")
+    logger.debug(resp)
 
     resp.decodeOption[List[GitHubOrg]].toList.flatten
   }
